@@ -1,0 +1,27 @@
+{
+    "tasks": [
+        "jquery"
+    ],
+    "ng": [],
+    "js": [],
+    "css": [],
+    "translate1": {
+        "fallback": "ru",
+        "prefix": "/!/locales/"
+    },
+    "otherwise": "/admin",
+    "routes": {
+        "/admin": {
+            "name": "admin",
+            "template": "<page-admin><\/page-admin>",
+            "title": "Dashboard",
+            "icon": "fa fa-dashboard"
+        },
+        "/admin/users": {
+            "name": "admin",
+            "template": "<page-admin><\/page-admin>",
+            "title": "Dashboard",
+            "icon": "fa fa-dashboard"
+        }
+    }
+}

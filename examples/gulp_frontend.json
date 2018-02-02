@@ -1,0 +1,17 @@
+{
+    "tasks": [
+        "jquery",
+        "bootstrap"
+    ],
+    "ng": [],
+    "js": [],
+    "css": [],
+    "otherwise": "/",
+    "routes": {
+        "/admin": {
+            "name": "home",
+            "template": "<page-home><\/page-home>",
+            "title": "Home"
+        }
+    }
+}

@@ -1,0 +1,7 @@
+{
+    "ng": [],
+    "css": [],
+    "js": [
+        "storage/gulp/vendor/jquery.js"
+    ]
+}

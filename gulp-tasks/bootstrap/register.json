@@ -1,0 +1,11 @@
+{
+    "ng": [
+        "ngBootstrap"
+    ],
+    "css": [
+        "storage/gulp/vendor/bootstrap.css"
+    ],
+    "js": [
+        "storage/gulp/vendor/bootstrap.js"
+    ]
+}
