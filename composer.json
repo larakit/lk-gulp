@@ -7,5 +7,6 @@
             "name": "Alexey Berdnikov",
             "email": "aberdnikov@gmail.com"
         }
-    ]
+    ],
+     "minimum-stability": "dev"
 }
