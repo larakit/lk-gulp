@@ -1,6 +1,6 @@
 module.exports = {
     apps: {},
-    init: function () {
+    init: function() {
         this.gulp = require('gulp');
         this.concat = require('gulp-concat');
         this.filter = require('gulp-custom-filter');
@@ -12,25 +12,28 @@ module.exports = {
         this.angularEmbedTemplates = require('gulp-angular-embed-templates');
         this.replace = require('gulp-replace');
         this.plugins = require('gulp-load-plugins')();
-        this.gulp.task('sprites', require('./gulp-tasks/sprites')(this));
-        this.gulp.task('fonts', require('./gulp-tasks/fonts')(this));
     },
     /**
      * Формируем основной таск из зарегистрированных приложений
      */
-    start: function () {
+    start: function() {
         var app_names = Object.keys(this.apps), self = this;
-        this.gulp.task('default', app_names, function () {
+        this.gulp.task('default', app_names, function() {
             // console.log(app_names);
             // console.log('default!');
             // console.log(self.apps);
         });
     },
-    registerTaskPrepare: function (task, section) {
+    registerTaskPrepare: function(task, section) {
         var fs = require('fs');
-        this.gulp.task(section + '-prepare-' + task, function () {
-            fs.access('vendor/larakit/lk-gulp/gulp-tasks/' + task + '/deploy.js', fs.constants.R_OK, function (err) {
-                !err ? require('./gulp-tasks/' + task + '/deploy')(this) : null;
+        var self = this;
+        var t;
+        this.gulp.task(section + '-prepare-' + task, function() {
+            fs.access('vendor/larakit/lk-gulp/gulp-tasks/' + task +
+                '/deploy.js', fs.constants.R_OK, function(err) {
+                if (!err) {
+                    t = require('./gulp-tasks/' + task + '/deploy')(self)();
+                }
             });
         });
     },
@@ -39,28 +42,28 @@ module.exports = {
      * @param name
      * @param config
      */
-    registerApp: function (name, config) {
+    registerApp: function(name, config) {
         var self = this;
         /**
          * зарегистрировали задачи по предобработке
          */
-        config.tasks.forEach(function (task) {
+        config.tasks.forEach(function(task) {
             self.registerTaskPrepare(task, name);
         });
-        this.gulp.task(name, function () {
+        this.gulp.task(name, function() {
             self.section(config, name);
         });
         this.apps[name] = config;
-
+        
     },
-    section: function (config, name) {
+    section: function(config, name) {
         var self = this;
         self.apps[name] = config;
-        config.tasks.forEach(function (task) {
+        config.tasks.forEach(function(task) {
             self.gulp.start(name + '-prepare-' + task);
         });
         var module;
-        config.tasks.forEach(function (task) {
+        config.tasks.forEach(function(task) {
             meta = require('./gulp-tasks/' + task +
                 '/register.json');
             if (undefined != meta.css) {
@@ -72,7 +75,9 @@ module.exports = {
             if (undefined != meta.ng) {
                 config.ng = config.ng.concat(meta.ng);
             }
+            console.warn(task, config.css);
         });
+        
         //css
         this.gulp.src(config.css).
             pipe(this.concat(name + '.css')).
@@ -106,8 +111,8 @@ module.exports = {
                 '            $translateProvider.useCookieStorage();\n' +
                 '            $translateProvider.useSanitizeValueStrategy(null);';
         }
-
-        Object.keys(config.routes).map(function (url, data) {
+        
+        Object.keys(config.routes).map(function(url, data) {
             routes += '.when(\'' + url + '\',';
             routes += JSON.stringify(config.routes[url]);
             routes += ')';
