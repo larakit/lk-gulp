@@ -14,7 +14,7 @@ module.exports = function (lkGulp) {
         lkGulp.gulp.src('public/!/dist/fonts/**/*.css')
             .pipe(lkGulp.concat('fonts.css'))
             .pipe(lkGulp.replace('url("', 'url("/!/dist/fonts/webfont/'))
-            .pipe(lkGulp.gulp.dest('storage/gulp/app'));
+            .pipe(lkGulp.gulp.dest('storage/gulp/vendor'));
         // path.src.app.push('storage/gulp/app/fonts.css');
     };
 };

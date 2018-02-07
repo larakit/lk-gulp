@@ -6,6 +6,6 @@
         "storage/gulp/vendor/bootstrap.css"
     ],
     "js": [
-        "storage/gulp/vendor/bootstrap.js"
+        "node_modules/bootstrap/dist/js/bootstrap.js"
     ]
 }

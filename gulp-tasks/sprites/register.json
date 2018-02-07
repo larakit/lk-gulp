@@ -1,7 +1,7 @@
 {
     "ng": [],
     "css": [
-        "storage/gulp/app/sprite-icons.css"
+        "storage/gulp/vendor/sprite-icons.css"
     ],
     "js": [
     ]

@@ -12,16 +12,31 @@ module.exports = {
         this.angularEmbedTemplates = require('gulp-angular-embed-templates');
         this.replace = require('gulp-replace');
         this.plugins = require('gulp-load-plugins')();
+        this.build_app_dev_css = require('gulp-load-plugins')();
     },
     /**
      * Формируем основной таск из зарегистрированных приложений
      */
     start: function() {
         var app_names = Object.keys(this.apps), self = this;
-        this.gulp.task('default', app_names, function() {
+        self.gulp.task('default', app_names, function() {
             // console.log(app_names);
             // console.log('default!');
             // console.log(self.apps);
+        });
+        self.gulp.task('watch', function() {
+            self.watch('public/!/app/**/*.css', function() {
+                app_names.forEach(function(app) {
+                    self.gulp.start('app-css-dev-' + app);
+                    self.gulp.start('app-css-prod-' + app);
+                });
+            });
+            self.watch('public/!/app/**/*.js', function() {
+                app_names.forEach(function(app) {
+                    self.gulp.start('app-js-dev-' + app);
+                    self.gulp.start('app-js-prod-' + app);
+                });
+            });
         });
     },
     registerTaskPrepare: function(task, section) {
@@ -32,7 +47,8 @@ module.exports = {
             fs.access('vendor/larakit/lk-gulp/gulp-tasks/' + task +
                 '/deploy.js', fs.constants.R_OK, function(err) {
                 if (!err) {
-                    t = require('./gulp-tasks/' + task + '/deploy')(self)();
+                    t = require('./gulp-tasks/' + task + '/deploy')(self,
+                        section)();
                 }
             });
         });
@@ -47,23 +63,35 @@ module.exports = {
         /**
          * зарегистрировали задачи по предобработке
          */
-        config.tasks.forEach(function(task) {
+        config.vendor.forEach(function(task) {
             self.registerTaskPrepare(task, name);
         });
         this.gulp.task(name, function() {
             self.section(config, name);
         });
         this.apps[name] = config;
+        self.gulp.task('app-css-dev-' + name,
+            require('./gulp-tasks/app-css-dev')(self, name, config));
+        self.gulp.task('app-css-prod-' + name,
+            require('./gulp-tasks/app-css-prod')(self, name, config));
+        self.gulp.task('app-js-dev-' + name,
+            require('./gulp-tasks/app-js-dev')(self, name, config));
+        self.gulp.task('app-js-prod-' + name,
+            require('./gulp-tasks/app-js-prod')(self, name, config));
         
     },
     section: function(config, name) {
         var self = this;
         self.apps[name] = config;
-        config.tasks.forEach(function(task) {
+        config.vendor.forEach(function(task) {
             self.gulp.start(name + '-prepare-' + task);
         });
+        self.gulp.start('app-css-dev-' + name);
+        self.gulp.start('app-css-prod-' + name);
+        self.gulp.start('app-js-dev-' + name);
+        self.gulp.start('app-js-prod-' + name);
         var module;
-        config.tasks.forEach(function(task) {
+        config.vendor.forEach(function(task) {
             meta = require('./gulp-tasks/' + task +
                 '/register.json');
             if (undefined != meta.css) {
@@ -75,23 +103,17 @@ module.exports = {
             if (undefined != meta.ng) {
                 config.ng = config.ng.concat(meta.ng);
             }
-            console.warn(task, config.css);
         });
         
         //css
         this.gulp.src(config.css).
-            pipe(this.concat(name + '.css')).
-            pipe(this.gulp.dest('storage/gulp/'));
+            pipe(this.concat(name + '-vendor.css')).
+            pipe(this.gulp.dest('public'));
         //js
         this.gulp.src(config.js).
-            pipe(this.concat(name + '.js')).
-            pipe(this.gulp.dest('storage/gulp/'));
+            pipe(this.concat(name + '-vendor.js')).
+            pipe(this.gulp.dest('public'));
         //ng-app
-        this.gulp.src('./vendor/larakit/lk-gulp/template_app.js').
-            pipe(this.concat(name + '-app.js')).
-            pipe(this.replace('[]', JSON.stringify(config.ng))).
-            pipe(this.gulp.dest('storage/gulp/'));
-        //ng-app-routes
         var routes = '$routeProvider', translate_template = '',
             translate_prefix,
             translate_fallback,
@@ -117,11 +139,12 @@ module.exports = {
             routes += JSON.stringify(config.routes[url]);
             routes += ')';
         });
-        this.gulp.src('./vendor/larakit/lk-gulp/template_app_routes.js').
-            pipe(this.concat(name + '-app-routes.js')).
+        this.gulp.src('./vendor/larakit/lk-gulp/template_app.js').
+            pipe(this.concat(name + '-app.js')).
+            pipe(this.replace('/*ng-modules*/', JSON.stringify(config.ng))).
             pipe(this.replace('/*translate*/', translate_template)).
             pipe(this.replace('/*otherwise*/', config.otherwise)).
             pipe(this.replace('/*routes*/', routes)).
-            pipe(this.gulp.dest('storage/gulp/'));
+            pipe(this.gulp.dest('public'));
     },
 };

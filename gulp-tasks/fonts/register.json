@@ -1,7 +1,7 @@
 {
     "ng": [],
     "css": [
-        "storage/gulp/app/fonts.css"
+        "storage/gulp/vendor/fonts.css"
     ],
     "js": [
     ]

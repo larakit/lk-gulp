@@ -1,5 +1,5 @@
 {
-    "tasks": [
+    "vendor": [
         "jquery",
         "angular",
         "angular-route",

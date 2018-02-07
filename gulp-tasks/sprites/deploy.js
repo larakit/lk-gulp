@@ -16,7 +16,7 @@ module.exports = function (lkGulp) {
         spriteData.css
             // .pipe(csso())
             .pipe(lkGulp.replace('url(', 'url(/!/dist/img/'))
-            .pipe(lkGulp.gulp.dest('storage/gulp/app'));
+            .pipe(lkGulp.gulp.dest('storage/gulp/vendor'));
         // var imgStream = spriteData.img.pipe('public/!/sprites');
         // var cssStream = spriteData.css.pipe('public/!/sprites');
         // lkGulp.path.src.app.push('storage/gulp/app/sprite-icons.css');
