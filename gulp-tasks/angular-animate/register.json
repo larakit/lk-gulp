@@ -1,0 +1,7 @@
+{
+    "ng": ["ngAnimate"],
+    "css": [],
+    "js": [
+        "./node_modules/angular-animate/angular-animate.js"
+    ]
+}

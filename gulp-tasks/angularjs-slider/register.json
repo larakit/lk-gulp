@@ -1,0 +1,9 @@
+{
+    "ng": ["color.picker"],
+    "css": [
+        "./node_modules/angularjs-slider/dist/rzslider.css"
+    ],
+    "js": [
+        "./node_modules/angularjs-slider/dist/rzslider.js"
+    ]
+}

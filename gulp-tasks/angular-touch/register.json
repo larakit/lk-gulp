@@ -1,0 +1,7 @@
+{
+    "ng": ["ngTouch"],
+    "css": [],
+    "js": [
+        "./node_modules/angular-touch/angular-touch.js"
+    ]
+}

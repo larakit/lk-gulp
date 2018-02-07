@@ -1,0 +1,9 @@
+{
+    "ng": ["ui.bootstrap"],
+    "css": [
+        "./node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css"
+    ],
+    "js": [
+        "./node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"
+    ]
+}

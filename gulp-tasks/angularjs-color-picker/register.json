@@ -1,0 +1,10 @@
+{
+    "ng": ["rzModule"],
+    "css": [
+        "./node_modules/angularjs-color-picker/dist/angularjs-color-picker.css",
+        "./node_modules/angularjs-color-picker/dist/themes/angularjs-color-picker-bootstrap.css"
+    ],
+    "js": [
+        "./node_modules/angularjs-color-picker/dist/angularjs-color-picker.js"
+    ]
+}

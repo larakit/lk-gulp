@@ -1,0 +1,7 @@
+{
+    "ng": ["dndLists"],
+    "css": [],
+    "js": [
+        "./node_modules/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"
+    ]
+}

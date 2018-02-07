@@ -1,6 +1,23 @@
 {
     "tasks": [
-        "jquery"
+        "jquery",
+        "angular",
+        "angular-route",
+        "angular-sanitize",
+        "angular-touch",
+        "angular-cookies",
+        "angular-animate",
+        "angular-drag-and-drop-lists",
+        "angular-file-upload",
+        "angular-hotkeys",
+        "angular-ui-bootstrap",
+        "angular-ui-switch",
+        "angular-ui-tree",
+        "angularjs-color-picker",
+        "angularjs-slider",
+        "quill",
+        "ng-quill",
+        "ui-select"
     ],
     "ng": [],
     "js": [],

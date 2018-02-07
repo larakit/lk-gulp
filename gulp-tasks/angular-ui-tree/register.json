@@ -1,0 +1,9 @@
+{
+    "ng": ["ui.tree"],
+    "css": [
+        "./node_modules/angular-ui-tree/dist/angular-ui-tree.css"
+    ],
+    "js": [
+        "./node_modules/angular-ui-tree/dist/angular-ui-tree.js"
+    ]
+}

@@ -1,0 +1,9 @@
+{
+    "ng": ["uiSwitch"],
+    "css": [
+        "./node_modules/angular-ui-switch/angular-ui-switch.css"
+    ],
+    "js": [
+        "./node_modules/angular-ui-switch/angular-ui-switch.js"
+    ]
+}

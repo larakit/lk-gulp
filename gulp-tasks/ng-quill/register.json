@@ -1,0 +1,7 @@
+{
+    "ng": ["ngQuill"],
+    "css": [],
+    "js": [
+        "./node_modules/ng-quill/dist/ng-quill.js"
+    ]
+}

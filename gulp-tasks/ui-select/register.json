@@ -1,0 +1,9 @@
+{
+    "ng": ["ui.select"],
+    "css": [
+        "./node_modules/ui-select/dist/select.css"
+    ],
+    "js": [
+        "./node_modules/ui-select/dist/select.js"
+    ]
+}
